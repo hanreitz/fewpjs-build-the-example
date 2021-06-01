@@ -1,9 +1,32 @@
 // Defining text characters for the empty and full hearts for you to use later.
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
+const modal = document.getElementById('modal')
 
 // Your JavaScript code goes here!
 
+const likeButtons = document.getElementsByClassName('like')
+
+for(const key in likeButtons) {
+  likeButtons[key].addEventListener('click', () => {
+    const heart = likeButtons[key].firstElementChild;
+
+    if(heart.innerText === EMPTY_HEART) {
+      mimicServerCall().then(() => {
+        heart.innerText = FULL_HEART;
+        heart.setAttribute('class','activated-heart')
+      })
+      .catch(error => {
+        modal.firstElementChild.innerText = 'Server Error!';
+        modal.removeAttribute('class');
+        setTimeout(function(){ modal.setAttribute('class', 'hidden') }, 3000);
+      })
+    } else if(heart.innerText === FULL_HEART) {
+      heart.innerText = EMPTY_HEART;
+      heart.removeAttribute('class');
+    };
+  })
+}
 
 
 
