@@ -5,16 +5,16 @@ const modal = document.getElementById('modal')
 
 // Your JavaScript code goes here!
 
-const likeButtons = document.getElementsByClassName('like')
+let likeButtons = document.getElementsByClassName('like')
 
-for(const key in likeButtons) {
-  likeButtons[key].addEventListener('click', () => {
-    const heart = likeButtons[key].firstElementChild;
+for(const button of likeButtons) {
+  button.addEventListener('click', () => {
+    const heart = button.firstElementChild;
 
     if(heart.innerText === EMPTY_HEART) {
       mimicServerCall().then(() => {
-        heart.innerText = FULL_HEART;
-        heart.setAttribute('class','activated-heart')
+        heart.innerHTML = FULL_HEART;
+        heart.setAttribute('class','activated-heart');
       })
       .catch(error => {
         modal.firstElementChild.innerText = 'Server Error!';
